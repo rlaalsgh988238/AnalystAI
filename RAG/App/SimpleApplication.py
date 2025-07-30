@@ -33,6 +33,7 @@ tools = [
             }
         }
     },
+    # 툴 추가 목록
     # {
     #     "type": "function",
     #     "function": {

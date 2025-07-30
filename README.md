@@ -50,6 +50,82 @@
 
 ---
 
+
+## 사용 방법
+
+### 1. 환경 준비
+
+- 인텔리제이 IDE 사용 권장
+
+### 2. 네이버 클로바 스튜디오 API 키 등록
+
+1. `AnalystAI/.idea/Key/` 폴더에 `key.txt` 파일을 생성하세요.
+2. 해당 파일에 클로바 스튜디오 API 키를 한 줄로 입력하세요.
+
+### 3. 애널리스트 데이터 추가
+
+- `AnalystAI/Docs` 폴더 내에 **애널리스트 이름(예: 심청이, 홍길동)**으로 폴더를 만들고,  
+  해당 애널리스트의 투자 리포트(txt 파일)를 추가하면 됩니다.
+- txt 파일명은 자유롭게 지정할 수 있습니다.
+
+### 4. 프로그램 실행
+
+- 다음 파일을 실행:
+  ```
+  AnalystAI/RAG/App/SimpleApplication.py
+  ```
+   위 파일은 간단한 서비스 어플리케이션 코드입니다. 
+
+- `SimpleApplication.py`에서 아래 항목을 수정하여 사용합니다:
+   - **구독 애널리스트 이름**
+     ```python
+     analystName = '심청이'
+     ```
+   - **질문/쿼리**
+     ```python
+     userQuery = "요즘 주식 어떻게 해야해?"
+     ```
+   - **AI 프롬프트(투자 스타일, 어투 등)**
+     ```python
+     aIPrompt = f"당신은 투자전문가 {analystName} 입니다 ..."
+     ```
+   - **AI 툴 목록**  
+     (문서 검색, 포트폴리오 조회 등 function tool 추가 가능, 코드 내 주석 참고)
+
+- 코드 내에서 프롬프트, 툴, 쿼리 등을 자유롭게 수정하여 다양한 시나리오를 테스트할 수 있습니다.
+
+---
+
+## 주요 코드 예시 (SimpleApplication.py)
+
+```python
+# 구독 Analyst, 쿼리, 프롬프트, 툴 등 자유롭게 수정 가능
+analystName = '심청이'
+userQuery = "요즘 주식 어떻게 해야해?"
+aIPrompt = f"당신은 투자전문가 {analystName} 입니다 ..."
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "search_document",
+            "description": "...",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "요청 내용과 명시할 부분"}
+                },
+                "required": ["query"]
+            }
+        }
+    },
+    # 필요시 function tool 추가 가능
+]
+```
+
+---
+
+
 ## 참고
 
 - Clova RAG 공식 문서: [https://api.ncloud-docs.com/docs/rag-overview)
